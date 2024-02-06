@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.paint2.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="538dp" />
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="122dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="167dp"
+            android:text="Clear" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="260dp"
+            android:layout_height="19dp"
+            android:text="Dezlizar para cambiar tamaño del pincel"
+            android:textAlignment="center"
+            android:textStyle="italic" />
+
+        <SeekBar
+            android:id="@+id/brushSizeSeekBar"
+            android:layout_width="457dp"
+            android:layout_height="61dp"
+            android:max="50"
+            android:progress="10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delizar para cambiar el color del pincel"
+            android:textAlignment="center"
+            android:textStyle="italic" />
+
+        <SeekBar
+            android:id="@+id/colorSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="83dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</RelativeLayout>
