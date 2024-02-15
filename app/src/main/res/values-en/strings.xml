@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Paint2</string>
+    <string name="Limpiar">Clean</string>
+    <string name="Deshacer">Undo</string>
+    <string name="Dezlizar">Dezlizar to change the brush size</string>
+    <string name="Deslizar2">Dezlizar to change the brush color</string>
+</resources>
