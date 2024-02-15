@@ -2,7 +2,9 @@ package com.example.paint2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
@@ -22,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
         clearButton = findViewById(R.id.clearButton);
         brushSizeSeekBar = findViewById(R.id.brushSizeSeekBar);
         colorSeekBar = findViewById(R.id.colorSeekBar);
+        Button undoButton = findViewById(R.id.undoButton);
 
         clearButton.setOnClickListener(v -> drawingView.clearCanvas());
+        undoButton.setOnClickListener(v -> drawingView.undo());
 
         brushSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -50,5 +54,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+
     }
 }

@@ -5,9 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class DrawingView extends View {
 
@@ -15,6 +21,8 @@ public class DrawingView extends View {
     private float lastX, lastY;
     private Bitmap bitmap;
     private Canvas canvas;
+
+    private List<Path> paths = new ArrayList<>();
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,6 +74,7 @@ public class DrawingView extends View {
     //Metodo para dibujar una línea
     private void drawLineOnCanvas(float startX, float startY, float endX, float endY) {
         canvas.drawLine(startX, startY, endX, endY, paint);
+        paths.add(new Path(startX, startY, endX, endY));
         invalidate();  // Notificar al sistema que la vista ha cambiado y necesita ser redibujada
     }
 
@@ -73,6 +82,7 @@ public class DrawingView extends View {
     //Metodo para ajustar el color del pincel
     public void setBrushColor(int progress) {
         int color = Color.HSVToColor(255, new float[]{progress, 1.0f, 1.0f});
+
         paint.setColor(color);
     }
 
@@ -82,19 +92,39 @@ public class DrawingView extends View {
     public void setBrushSize(int progress) {
         paint.setStrokeWidth(progress);
     }
+
     //Metodo para limpiar el cambas
     public void clearCanvas() {
         canvas.drawColor(Color.WHITE);  // Limpiar el lienzo dibujando un fondo blanco
+        paths.clear();
         invalidate();  // Notificar al sistema que la vista ha cambiado y necesita ser redibujada
     }
 
-    // Metodo para ajustar el color del pincel
-    /*
-    public void setBrushColor(int colorValue) {
-        int red = (colorValue >> 16) & 0xFF;
-        int green = (colorValue >> 8) & 0xFF;
-        int blue = colorValue & 0xFF;
-        paint.setColor(Color.rgb(red, green, blue));
+    public void undo() {
+        if (!paths.isEmpty()) {
+            paths.remove(paths.size() - 4); // Elimina las 4 ultimas  línea dibujada del registro
+            redraw();
+        }
     }
-     */
+
+    //Metodo para redibujar el lienzo
+    public void redraw() {
+        canvas.drawColor(Color.WHITE);  // Limpiar el lienzo dibujando un fondo blanco
+        for (Path path : paths) {
+            canvas.drawLine(path.startX, path.startY, path.endX, path.endY, paint);
+        }
+        invalidate();  // Notificar al sistema que la vista ha cambiado y necesita ser redibujada
+    }
+
+    //Clase Path
+    private static class Path {
+        float startX, startY, endX, endY;
+
+        Path(float startX, float startY, float endX, float endY) {
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+        }
+    }
 }
